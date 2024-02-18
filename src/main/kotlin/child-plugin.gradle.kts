@@ -19,6 +19,16 @@ val mvnVersion = rootProject.version.toString()
 
 version = mvnVersion
 
+tasks.jacocoTestReport {
+  dependsOn("test")
+
+  executionData.setFrom(fileTree(layout.buildDirectory).include("/jacoco/*.exec"))
+  reports {
+    xml.required = true
+    html.required = true
+  }
+}
+
 tasks.named("check") { dependsOn("jacocoTestReport") }
 
 afterEvaluate {
