@@ -16,6 +16,7 @@ spotless {
   kotlinGradle {
     target("*.gradle.kts") // default target for kotlinGradle
     ktfmt() // or ktfmt() or prettier()
+    endWithNewline()
   }
 }
 

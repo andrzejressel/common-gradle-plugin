@@ -1,6 +1,6 @@
 import org.gradle.kotlin.dsl.*
-import pl.andrzejressel.deeplambdaserialization.buildplugin.CommonExtension
-import pl.andrzejressel.deeplambdaserialization.buildplugin.License
+import pl.andrzejressel.plugin.CommonExtension
+import pl.andrzejressel.plugin.License
 
 plugins {
   `java-library`
@@ -34,20 +34,25 @@ afterEvaluate {
     groovyGradle {
       target("*.gradle") // default target of groovyGradle
       greclipse()
-    }
-    kotlinGradle {
-      target("*.gradle.kts", "src/**/*.gradle.kts") // default target for kotlinGradle
-      ktfmt() // or ktfmt() or prettier()
       endWithNewline()
     }
-    java {
-      importOrder()
-      removeUnusedImports()
-      cleanthat()
-      palantirJavaFormat().style("GOOGLE")
-      target("src/**/*.java")
-      licenseHeader("// SPDX-License-Identifier: ${license.spdxId}")
-      endWithNewline()
+    if (licenseExt.childAndParentInTheSameProject.orNull != true) {
+      kotlinGradle {
+        target("*.gradle.kts", "src/**/*.gradle.kts") // default target for kotlinGradle
+        ktfmt() // or ktfmt() or prettier()
+        endWithNewline()
+      }
+    }
+    if (licenseExt.disableJavaFormatter.orNull != true) {
+      java {
+        importOrder()
+        removeUnusedImports()
+        cleanthat()
+        palantirJavaFormat().style("GOOGLE")
+        target("src/**/*.java")
+        licenseHeader("// SPDX-License-Identifier: ${license.spdxId}")
+        endWithNewline()
+      }
     }
   }
 
