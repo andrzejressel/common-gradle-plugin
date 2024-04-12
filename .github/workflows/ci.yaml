@@ -30,6 +30,6 @@ jobs:
         with:
           minimum-size: 6GB
       - name: Build
-        uses: gradle/gradle-build-action@v3.2.1
+        uses: gradle/gradle-build-action@v3.3.0
         with:
           arguments: check --scan
