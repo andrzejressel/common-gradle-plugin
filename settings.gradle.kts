@@ -1,4 +1,4 @@
-plugins { id("com.gradle.enterprise") version ("3.18") }
+plugins { id("com.gradle.enterprise") version ("3.18.1") }
 
 if (!System.getenv("CI").isNullOrEmpty()) {
   gradleEnterprise {
